@@ -27,3 +27,6 @@ message.set_content(email_body)
 
 context = ssl.create_default_context()
 
+with smtplib.SMTP_SSL('smtp.gmail.com', 465, context=context) as sm:
+    sm.login(email_from, the_pass)
+    sm.sendmail(email_from, email_to, message.as_string())
