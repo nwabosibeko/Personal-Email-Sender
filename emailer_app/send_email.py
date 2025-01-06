@@ -19,3 +19,11 @@ email_body = """
 This application is in it's first stage as I will create a GUI going forth
 """
 message = EmailMessage()
+
+message['From'] = email_from
+message['To'] = email_to
+message['Subject'] = email_sub
+message.set_content(email_body)
+
+context = ssl.create_default_context()
+
