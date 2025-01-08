@@ -2,13 +2,13 @@ import os
 from email.message import EmailMessage
 import ssl
 import smtplib
+ 
 
 the_pass = os.getenv("python_password")
 
 
-
 email_from = "smisosibeko@gmail.com"
-email_to = "nwabosibeko17@gmail.com"
+email_to = input("Enter the email of the recepient: ")
 
 email_sub = 'Trying this programm out.'
 email_body = """
