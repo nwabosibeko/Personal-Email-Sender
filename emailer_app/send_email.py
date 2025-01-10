@@ -10,23 +10,33 @@ import smtplib
 
 the_pass = os.getenv("python_password") #the password to my account login (stored in my OS)
 
+email_from = "smisosibeko@gmail.com" #immutable email used
 
-email_from = "smisosibeko@gmail.com"
+message = EmailMessage() #building the email programmatically, with the subject, body, recepient and attachments.
 
 
-email_to = input("Enter the email of the recepient: ")
-email_sub = input("Subject: ")
-email_body = input("Body: ")
+def userInput():
 
-message = EmailMessage()
+    email_to = input("Enter the email of the recepient: ")
+    email_sub = input("Subject: ")
+    email_body = input("Body: ")
 
-message['From'] = email_from
-message['To'] = email_to
-message['Subject'] = email_sub
-message.set_content(email_body)
+    return email_to, email_sub, email_body
 
-context = ssl.create_default_context()
+def construct_send_email(recepient, subject, bod):
 
-with smtplib.SMTP_SSL('smtp.gmail.com', 465, context=context) as sm:
-    sm.login(email_from, the_pass)
-    sm.sendmail(email_from, email_to, message.as_string())
+    message['From'] = email_from
+    message['To'] = recepient
+    message['Subject'] = subject
+    message.set_content(bod)
+
+    context = ssl.create_default_context()
+
+    with smtplib.SMTP_SSL('smtp.gmail.com', 465, context=context) as sm:
+        sm.login(email_from, the_pass)
+        sm.sendmail(email_from, recepient, message.as_string())
+
+
+if __name__ == "__main__":
+    to, sub, body = userInput()
+    construct_send_email(to, sub, body)
