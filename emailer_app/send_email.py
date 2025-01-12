@@ -2,10 +2,7 @@ import os
 from email.message import EmailMessage
 import ssl
 import smtplib
-
-
-#Greeting  into the application...
-
+from pyfiglet import Figlet
 
 
 the_pass = os.getenv("python_password") #the password to my account login (stored in my OS)
@@ -13,10 +10,16 @@ the_pass = os.getenv("python_password") #the password to my account login (store
 email_from = "smisosibeko@gmail.com" #immutable email used
 
 message = EmailMessage() #building the email programmatically, with the subject, body, recepient and attachments.
+def user_login():
+    RED = '\033[31m'
+    RESET = '\033[0m'
+    fig = Figlet(font='slant')
+    heading = fig.renderText("Nwabo's")
 
+    print("{0}{2}{1}".format(RED, RESET, heading))
 
 def userInput():
-
+    user_login()
     email_to = input("Enter the email of the recepient: ")
     email_sub = input("Subject: ")
     email_body = input("Body: ")
