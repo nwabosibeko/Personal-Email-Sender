@@ -12,12 +12,14 @@ email_from = "smisosibeko@gmail.com" #immutable email used
 message = EmailMessage() #building the email programmatically, with the subject, body, recepient and attachments.
 def user_login():
     RED = '\033[31m'
+    BLUE = '\033[34m'
     RESET = '\033[0m'
     fig = Figlet(font='slant')
     heading = fig.renderText("Nwabo's")
+    heading2 = fig.renderText("Emailer")
 
-    print("{0}{2}{1}".format(RED, RESET, heading))
-
+    print(f"{RED}{heading}{RESET} {BLUE}{heading2}{RESET}", end="")
+    
 def userInput():
     user_login()
     email_to = input("Enter the email of the recepient: ")
