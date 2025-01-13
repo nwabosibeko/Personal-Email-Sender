@@ -1,8 +1,10 @@
 import os
-from email.message import EmailMessage
 import ssl
+import json
 import smtplib
 from pyfiglet import Figlet
+from email.message import EmailMessage
+
 
 
 the_pass = os.getenv("python_password") #the password to my account login (stored in my OS)
@@ -19,13 +21,29 @@ def user_login():
     heading2 = fig.renderText("Emailer")
     print(f"{RED}{heading}{RESET} {BLUE}{heading2}{RESET}")
 
+    my_data = dict()
+
     if os.path.isfile("emailer_app/accounts.json"):
         print("Yes it does exist")
-    else:
-        print("No it does not")
+        with open("accounts.json", "r") as lsm:
+            credentials = input("Welcome Mr ")
 
-    # my_data = dict()
-    # my_data["name"]
+
+        
+    else:
+        print("No it does not, please register")
+        my_data["name"] = input("Please enter your name: ")
+        my_data["surname"] = input("PLease enter your surname: ")
+
+        with open("accounts.json", "w") as f:
+            json.dump(my_data, f)
+
+    my_data = dict()
+    print(my_data)
+
+def generate_password(firstName, lastName):
+    return ""
+
 def userInput():
     user_login()
     email_to = input("Enter the email of the recepient: ")
