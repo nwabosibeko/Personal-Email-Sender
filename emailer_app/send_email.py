@@ -17,9 +17,15 @@ def user_login():
     fig = Figlet(font='slant')
     heading = fig.renderText("Nwabo's")
     heading2 = fig.renderText("Emailer")
+    print(f"{RED}{heading}{RESET} {BLUE}{heading2}{RESET}")
 
-    print(f"{RED}{heading}{RESET} {BLUE}{heading2}{RESET}", end="")
-    
+    if os.path.isfile("emailer_app/accounts.json"):
+        print("Yes it does exist")
+    else:
+        print("No it does not")
+
+    # my_data = dict()
+    # my_data["name"]
 def userInput():
     user_login()
     email_to = input("Enter the email of the recepient: ")
