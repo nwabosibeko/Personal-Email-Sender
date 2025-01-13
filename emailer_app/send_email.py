@@ -19,27 +19,35 @@ def user_login():
     fig = Figlet(font='slant')
     heading = fig.renderText("Nwabo's")
     heading2 = fig.renderText("Emailer")
-    print(f"{RED}{heading}{RESET} {BLUE}{heading2}{RESET}")
+   
 
     my_data = dict()
 
     if os.path.isfile("emailer_app/accounts.json"):
         print("Yes it does exist")
         with open("accounts.json", "r") as lsm:
-            credentials = input("Welcome Mr ")
+            the_content = lsm.read()
+            print("Welcome Mr {}".format(the_content['name']))
+            while True:
+                credentials = input("Enter your password to login: ")
+                if credentials == the_content['password']:
+                     print(f"{RED}{heading}{RESET} {BLUE}{heading2}{RESET}")
+                     break
+
+            
 
 
         
     else:
         print("No it does not, please register")
-        my_data["name"] = input("Please enter your name: ")
-        my_data["surname"] = input("PLease enter your surname: ")
-
+        my_data['name'] = input("Please enter your name: ")
+        my_data['surname'] = input("PLease enter your surname: ")
+        my_data['password'] = generate_password(my_data["name"], my_data['surname'])
+        
         with open("accounts.json", "w") as f:
             json.dump(my_data, f)
 
-    my_data = dict()
-    print(my_data)
+        print(f"{RED}{heading}{RESET} {BLUE}{heading2}{RESET}")
 
 def generate_password(firstName, lastName):
     return ""
