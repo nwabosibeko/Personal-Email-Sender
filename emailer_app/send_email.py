@@ -32,10 +32,12 @@ def user_login():
                 while True:
                     credentials = input("Enter your password to login: ")
                     with open("accounts.json", "r") as lsm:
-                        the_content = lsm.read()
-                        print("Welcome Mr {}".format(the_content['name']))
+                        the_content = json.load(lsm)
                         if credentials == the_content['password']:
+                            print("Welcome Mr {}".format(the_content['name']))
                             return f"{RED}{heading}{RESET} {BLUE}{heading2}{RESET}"
+                        else:
+                            continue
                             
                 # if os.path.isfile("emailer_app/accounts.json"):
                 #     print("Yes it does exist")
@@ -52,9 +54,10 @@ def user_login():
                     
                     with open("accounts.json", "w") as f:
                         json.dump(my_data, f)
+                        f.close()
                     with open("accounts.json", "r") as f2:
-                        print(the_data["name"])
-                        # print("Welcome Mr {}".format(the_data['name']))
+                        the_data = json.load(f2)
+                        print("Welcome Mr {}".format(the_data['name']))
 
                         return f"{RED}{heading}{RESET} {BLUE}{heading2}{RESET}"
         
