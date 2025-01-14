@@ -22,38 +22,48 @@ def user_login():
    
 
     my_data = dict()
+  
+    while True:
+        option = input("""1. SIGN IN
+2. REGISTER
+""")
+        match option:
+            case "1":
+                while True:
+                    credentials = input("Enter your password to login: ")
+                    with open("accounts.json", "r") as lsm:
+                        the_content = lsm.read()
+                        print("Welcome Mr {}".format(the_content['name']))
+                        if credentials == the_content['password']:
+                            return f"{RED}{heading}{RESET} {BLUE}{heading2}{RESET}"
+                            
+                # if os.path.isfile("emailer_app/accounts.json"):
+                #     print("Yes it does exist")
+    
+                       
 
-    if os.path.isfile("emailer_app/accounts.json"):
-        print("Yes it does exist")
-        with open("accounts.json", "r") as lsm:
-            the_content = lsm.read()
-            print("Welcome Mr {}".format(the_content['name']))
-            while True:
-                credentials = input("Enter your password to login: ")
-                if credentials == the_content['password']:
-                     print(f"{RED}{heading}{RESET} {BLUE}{heading2}{RESET}")
-                     break
-
-            
+                
 
 
+            case "2":
+                    my_data['name'] = input("Please enter your name: ")
+                    my_data['surname'] = input("PLease enter your surname: ")
+                    my_data['password'] = generate_password(my_data["name"], my_data['surname'])
+                    
+                    with open("accounts.json", "w") as f:
+                        json.dump(my_data, f)
+                    with open("accounts.json", "r") as f2:
+                        print(the_data["name"])
+                        # print("Welcome Mr {}".format(the_data['name']))
+
+                        return f"{RED}{heading}{RESET} {BLUE}{heading2}{RESET}"
         
-    else:
-        print("No it does not, please register")
-        my_data['name'] = input("Please enter your name: ")
-        my_data['surname'] = input("PLease enter your surname: ")
-        my_data['password'] = generate_password(my_data["name"], my_data['surname'])
-        
-        with open("accounts.json", "w") as f:
-            json.dump(my_data, f)
-
-        print(f"{RED}{heading}{RESET} {BLUE}{heading2}{RESET}")
 
 def generate_password(firstName, lastName):
     return ""
 
 def userInput():
-    user_login()
+    print(user_login())
     email_to = input("Enter the email of the recepient: ")
     email_sub = input("Subject: ")
     email_body = input("Body: ")
