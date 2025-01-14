@@ -1,6 +1,8 @@
 import os
 import ssl
 import json
+import string
+import random
 import smtplib
 from pyfiglet import Figlet
 from email.message import EmailMessage
@@ -38,32 +40,25 @@ def user_login():
                             return f"{RED}{heading}{RESET} {BLUE}{heading2}{RESET}"
                         else:
                             continue
-                            
-                # if os.path.isfile("emailer_app/accounts.json"):
-                #     print("Yes it does exist")
-    
-                       
-
-                
-
-
+                    
             case "2":
                     my_data['name'] = input("Please enter your name: ")
                     my_data['surname'] = input("PLease enter your surname: ")
-                    my_data['password'] = generate_password(my_data["name"], my_data['surname'])
+                    my_data['password'] = generate_password()
                     
                     with open("accounts.json", "w") as f:
                         json.dump(my_data, f)
                         f.close()
                     with open("accounts.json", "r") as f2:
                         the_data = json.load(f2)
-                        print("Welcome Mr {}".format(the_data['name']))
+                        print("Welcome Mr {}\n Here is your password: ".format(the_data['surname']))
 
                         return f"{RED}{heading}{RESET} {BLUE}{heading2}{RESET}"
         
 
-def generate_password(firstName, lastName):
-    return ""
+def generate_password():
+    the_pasword = random.choices(string.ascii_letters + string.digits, 10)
+    return the_pasword
 
 def userInput():
     print(user_login())
@@ -88,5 +83,6 @@ def construct_send_email(recepient, subject, bod):
 
 
 if __name__ == "__main__":
-    to, sub, body = userInput()
-    construct_send_email(to, sub, body)
+    # to, sub, body = userInput()
+    # construct_send_email(to, sub, body)
+    print(generate_password())
