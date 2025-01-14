@@ -17,6 +17,7 @@ message = EmailMessage() #building the email programmatically, with the subject,
 def user_login():
     RED = '\033[31m'
     BLUE = '\033[34m'
+    GREEN = '\033[32m'
     RESET = '\033[0m'
     fig = Figlet(font='slant')
     heading = fig.renderText("Nwabo's")
@@ -44,20 +45,20 @@ def user_login():
             case "2":
                     my_data['name'] = input("Please enter your name: ")
                     my_data['surname'] = input("PLease enter your surname: ")
-                    my_data['password'] = generate_password()
+                    my_data['password'] = generate_password(my_data['name'], my_data['surname'])
                     
                     with open("accounts.json", "w") as f:
                         json.dump(my_data, f)
                         f.close()
                     with open("accounts.json", "r") as f2:
                         the_data = json.load(f2)
-                        print("Welcome Mr {}\n Here is your password: ".format(the_data['surname']))
+                        print("Welcome Mr {2}\nHere is your password: {0}{3}{1}".format(GREEN, RESET, the_data['surname'], the_data['password']))
 
                         return f"{RED}{heading}{RESET} {BLUE}{heading2}{RESET}"
         
 
-def generate_password():
-    the_pasword = random.choices(string.ascii_letters + string.digits, 10)
+def generate_password(firstName, lastName):
+    the_pasword = "".join(random.choices(firstName + lastName + string.digits, k= 10))
     return the_pasword
 
 def userInput():
@@ -83,6 +84,5 @@ def construct_send_email(recepient, subject, bod):
 
 
 if __name__ == "__main__":
-    # to, sub, body = userInput()
-    # construct_send_email(to, sub, body)
-    print(generate_password())
+    to, sub, body = userInput()
+    construct_send_email(to, sub, body)
